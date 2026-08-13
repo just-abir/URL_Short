@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 
 const clickSchema = new mongoose.Schema(
   {
@@ -8,20 +8,35 @@ const clickSchema = new mongoose.Schema(
       required: true,
       index: true,
     },
-    ipAddress: String,
+    browser: {
+      type: String,
+      default: "Unknown",
+    },
 
-    country: String,
+    operatingSystem: {
+      type: String,
+      default: "Unknown",
+    },
 
-    city: String,
+    device: {
+      type: String,
+      default: "Desktop",
+    },
 
-    browser: String,
+    country: {
+      type: String,
+      default: "Unknown",
+    },
 
-    operatingSystem: String,
+    city: {
+      type: String,
+      default: "Unknown",
+    },
 
-    device: String,
-
-    referrer: String,
-
+    referrer: {
+      type: String,
+      default: "Direct",
+    },
     visitedAt: {
       type: Date,
       default: Date.now,

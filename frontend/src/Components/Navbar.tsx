@@ -27,7 +27,9 @@ const Navbar = ({ themeMode, setthemeMode }: ThemeProps) => {
             className="
               flex h-10 w-10 items-center justify-center
               rounded-xl
-              bg-gradient-to-br from-violet-500 via-fuchsia-500 to-cyan-400
+              bg-gradient-to-br from-emerald-500
+via-green-500
+to-teal-500
               shadow-lg shadow-fuchsia-500/20
               transition-all duration-300
               group-hover:scale-110
@@ -83,7 +85,9 @@ const Navbar = ({ themeMode, setthemeMode }: ThemeProps) => {
             <h1
               className="
                 text-xl font-extrabold tracking-tight
-                bg-gradient-to-r from-violet-500 via-fuchsia-500 to-cyan-400
+                bg-gradient-to-r from-emerald-500
+via-green-500
+to-teal-500
                 bg-clip-text text-transparent
               "
             >

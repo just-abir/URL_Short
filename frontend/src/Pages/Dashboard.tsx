@@ -92,11 +92,11 @@ const Dashboard = ({ themeMode }: DashboardProps) => {
   // =========================
   // API
   // =========================
-
+  const API_URL = import.meta.env.VITE_API_URL;
   const callDashboard = async () => {
     try {
       const response = await axios.get<ApiResponse<DashboardResponse>>(
-        `http://localhost:5000/api/v1/dashboard/`,
+        `${API_URL}/api/v1/dashboard/`,
       );
 
       console.log("dashboard:", response.data.data);

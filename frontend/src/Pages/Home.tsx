@@ -37,11 +37,12 @@ const Home = ({ themeMode }: HomeProps) => {
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
+  const API_URL = import.meta.env.VITE_API_URL;
 
   const downloadBtn = async (code: string) => {
     try {
       const res = await axios.get<Blob>(
-        `http://localhost:5000/api/v1/links/${code}/download`,
+        `${API_URL}/api/v1/links/${code}/download`,
         {
           responseType: "blob",
         },
@@ -82,7 +83,7 @@ const Home = ({ themeMode }: HomeProps) => {
 
     try {
       const response = await axios.post<ApiResponse<ShortUrlResponse>>(
-        "http://localhost:5000/api/v1/links",
+        `${API_URL}/api/v1/links`,
         formData,
       );
 
@@ -145,12 +146,12 @@ const Home = ({ themeMode }: HomeProps) => {
               Shorten Your{" "}
               <span
                 className="
-                bg-gradient-to-r
-                from-violet-500
-                via-purple-500
-                to-indigo-500
-                bg-clip-text
-                text-transparent
+              bg-gradient-to-r
+from-emerald-500
+via-green-500
+to-teal-500
+bg-clip-text
+text-transparent
               "
               >
                 URL
@@ -290,9 +291,9 @@ const Home = ({ themeMode }: HomeProps) => {
         shrink-0
         rounded-xl
         bg-gradient-to-r
-        from-violet-600
-        via-purple-600
-        to-indigo-600
+        from-emerald-600
+        via-green-600
+        to-teal-600
         px-8
         text-sm
         font-bold
@@ -601,7 +602,7 @@ const Home = ({ themeMode }: HomeProps) => {
 
                   <div className="rounded-xl bg-white p-3 shadow-lg">
                     <img
-                      src={`http://localhost:5000${result.qrCode}`}
+                      src={result.qrCode}
                       alt="QR Code"
                       className="
                       h-40

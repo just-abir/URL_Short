@@ -5,9 +5,10 @@ const asyncHandler = require("../utils/asyncHandler");
 const sendResponse = require("../utils/sendResponse");
 const crypto = require("crypto");
 const QRCode = require("qrcode");
-const path = require("path");
+
 const axios = require("axios");
 const UAParser = require("ua-parser-js");
+const uploadQrToCloudinary = require("../utils/uploadQrCloudinary");
 
 const generateShortCode = () => crypto.randomBytes(3).toString("hex");
 const checkingUrl = async (url) => {
@@ -110,15 +111,13 @@ const createLink = asyncHandler(async (req, res, next) => {
   const newShortUrl = `${req.protocol}://${req.get("host")}/${finalCode}`;
 
   // 7. Generate QR code
-  const filePath = path.join(__dirname, "../uploads/qr", `${finalCode}.png`);
 
-  console.log("Saving QR to:", filePath);
+  const qrBuffer = await QRCode.toBuffer(newShortUrl);
+  console.log("qeBuffer: ", qrBuffer);
+  const uploadResult = await uploadQrToCloudinary(qrBuffer, finalCode);
+  console.log("R-Tessting ", uploadResult);
 
-  await QRCode.toFile(filePath, newShortUrl);
-
-  console.log("QR Generated Successfully");
-
-  const qrCodeUrl = `/uploads/qr/${finalCode}.png`;
+  const qrCodeUrl = uploadResult.secure_url;
 
   // 8. Check original URL
   const isUrlReachable = await checkingUrl(trimmedUrl);
@@ -184,19 +183,45 @@ const redirectOriginal = asyncHandler(async (req, res, next) => {
 
 const qrCodeDownlad = asyncHandler(async (req, res, next) => {
   const { code } = req.params;
-  console.log(req.params);
+
   const link = await linkModel.findOne({
     $or: [{ shortCode: code }, { customAlias: code }],
   });
 
-  if (!link) sendResponse(res, 404, "link not found");
+  if (!link) return sendResponse(res, 404, "link not found");
+
+  if (!link.qrCode) {
+    return sendResponse(res, 404, "QR code not found for this link");
+  }
 
   const fileName = link.customAlias || link.shortCode;
 
-  const filePath = path.join(__dirname, "../uploads/qr", `${fileName}.png`);
+  try {
+    const response = await axios.get(link.qrCode, {
+      responseType: "stream",
+    });
 
-  return res.download(filePath);
+    res.setHeader(
+      "Content-Disposition",
+      `attachment; filename="${fileName}.png"`,
+    );
+    res.setHeader("Content-Type", "image/png");
+
+    response.data.pipe(res);
+
+    // handle stream errors after piping starts
+    response.data.on("error", (err) => {
+      console.error("Error streaming QR from Cloudinary:", err);
+      if (!res.headersSent) {
+        sendResponse(res, 500, "Failed to download QR code");
+      } else {
+        res.end();
+      }
+    });
+  } catch (error) {
+    console.error("Error fetching QR from Cloudinary:", error.message);
+    return sendResponse(res, 500, "Failed to fetch QR code");
+  }
 });
 
 module.exports = { createLink, redirectOriginal, qrCodeDownlad };
-``;

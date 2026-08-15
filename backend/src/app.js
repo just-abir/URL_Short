@@ -1,4 +1,3 @@
-const path = require("path");
 const express = require("express");
 const cors = require("cors");
 const globalErrorController = require("./middlewares/globalErrorHandler");
@@ -10,7 +9,15 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+
+app.get("/health", (req, res) => {
+  res.status(200).json({
+    status: "ok",
+    uptime: process.uptime(),
+    timestamp: new Date().toISOString(),
+  });
+});
+
 app.use("/api/v1/links", linkRouter);
 app.use("/api/v1/dashboard", dashboardRouter);
 app.get("/:code", redirectOriginal);

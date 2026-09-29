@@ -67,9 +67,8 @@ interface ApiResponse<T> {
 }
 
 const Dashboard = ({ themeMode }: DashboardProps) => {
-  console.log("dashboard : ", themeMode);
   const [dashboard, setDashboard] = useState<DashboardResponse | null>(null);
-
+  const [error, setError] = useState<string | null>(null);
   const topLinksData = dashboard?.topLinks || [];
   const browserData = dashboard?.browser || [];
   const operatingSystemData = dashboard?.operatingSystem || [];
@@ -99,16 +98,14 @@ const Dashboard = ({ themeMode }: DashboardProps) => {
         `${API_URL}/api/v1/dashboard/`,
       );
 
-      console.log("dashboard:", response.data.data);
-
       setDashboard(response.data.data);
     } catch (error: unknown) {
       if (axios.isAxiosError(error)) {
-        console.log(error.response?.data?.message || error.message);
+        setError(error.response?.data?.message || error.message);
       } else if (error instanceof Error) {
-        console.log(error.message);
+        setError(error.message);
       } else {
-        console.log("Something went wrong");
+        setError("Something went wrong");
       }
     }
   };

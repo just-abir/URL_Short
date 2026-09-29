@@ -22,9 +22,7 @@ This platform lets users shorten long URLs into compact, shareable links with op
 
 ## Live Demo
 
-> _Coming soon — deploy to Vercel (frontend) + Render (backend) for a live demo._
-
----
+## [View Live Demo](https://url-short-ms3y-taupe.vercel.app)
 
 ## Screenshots
 
@@ -33,40 +31,45 @@ This platform lets users shorten long URLs into compact, shareable links with op
 > - **Home Page (Light Mode)** — URL shortening form with result card and QR code -(./screenshots/HomePage_lightMode.png)
 > - **Home Page (Dark Mode)** — Same page in dark theme -(./screenshots/HomePage_darkMode.png)
 > - **Dashboard** — Analytics charts showing clicks by browser, OS, device, and daily trends-(./screenshots/Dashboard.png)
-l
----
+
+## l
 
 ## Features
 
 ### URL Shortening
-| Feature | Description |
-|---|---|
-| Auto Short Code | Generates a random 6-character hex code (`crypto.randomBytes(3)`) |
-| Custom Alias | Users can set a custom alias (e.g., `my-link`) instead of random code |
-| Duplicate Detection | If the same original URL is submitted again, returns the existing short URL |
-| Self-Referencing Prevention | Prevents users from shortening an already-shortened URL from the same host |
-| URL Reachability Check | Validates the target URL via an HTTP GET request before saving |
-| Link Expiration | Each link expires **20 days** after creation |
+
+| Feature                     | Description                                                                 |
+| --------------------------- | --------------------------------------------------------------------------- |
+| Auto Short Code             | Generates a random 6-character hex code (`crypto.randomBytes(3)`)           |
+| Custom Alias                | Users can set a custom alias (e.g., `my-link`) instead of random code       |
+| Duplicate Detection         | If the same original URL is submitted again, returns the existing short URL |
+| Self-Referencing Prevention | Prevents users from shortening an already-shortened URL from the same host  |
+| URL Reachability Check      | Validates the target URL via an HTTP GET request before saving              |
+| Link Expiration             | Each link expires **20 days** after creation                                |
 
 ### QR Code
-| Feature | Description |
-|---|---|
-| Auto Generation | A QR code image (PNG) is generated for every short link |
-| Download | Users can download the QR code via a dedicated API endpoint |
-| Display | QR code is shown directly in the result card on the frontend |
+
+| Feature         | Description                                                  |
+| --------------- | ------------------------------------------------------------ |
+| Auto Generation | A QR code image (PNG) is generated for every short link      |
+| Download        | Users can download the QR code via a dedicated API endpoint  |
+| Display         | QR code is shown directly in the result card on the frontend |
 
 ### Analytics Dashboard
-| Feature | Description |
-|---|---|
-| Summary Cards | Total Links, Total Clicks, Active Links, Reachable Links |
-| Top Links Chart | Horizontal bar chart of the top 10 most-clicked links |
-| Browser Analytics | Bar chart showing click distribution by browser |
-| OS Analytics | Pie chart showing click distribution by operating system |
-| Device Analytics | Bar chart showing clicks by device type (Desktop, Mobile, Tablet) |
-| Daily Report | Line chart showing click trends over time |
+
+| Feature           | Description                                                       |
+| ----------------- | ----------------------------------------------------------------- |
+| Summary Cards     | Total Links, Total Clicks, Active Links, Reachable Links          |
+| Top Links Chart   | Horizontal bar chart of the top 10 most-clicked links             |
+| Browser Analytics | Bar chart showing click distribution by browser                   |
+| OS Analytics      | Pie chart showing click distribution by operating system          |
+| Device Analytics  | Bar chart showing clicks by device type (Desktop, Mobile, Tablet) |
+| Daily Report      | Line chart showing click trends over time                         |
 
 ### Click Tracking
+
 Each click on a short link records:
+
 - **Browser** name (parsed from User-Agent)
 - **Operating System** (parsed from User-Agent)
 - **Device Type** (Desktop, Mobile, Tablet)
@@ -74,6 +77,7 @@ Each click on a short link records:
 - **Timestamp** of the visit
 
 ### UI/UX
+
 - 🌓 Dark/Light theme toggle with smooth transitions
 - 💎 Glassmorphism navbar with backdrop blur
 - 🎨 Gradient cards and buttons throughout the UI
@@ -86,26 +90,27 @@ Each click on a short link records:
 ## Tech Stack
 
 ### Backend
-| Technology | Purpose |
-|---|---|
-| **Node.js** | JavaScript runtime |
-| **Express 5** | Web framework & API routing |
-| **MongoDB** | NoSQL database for links & clicks |
-| **qrcode** | QR code image generation (PNG) |
-| **ua-parser-js** | User-Agent parsing (browser, OS, device) |
-| **axios** | HTTP client for URL reachability checks |
 
+| Technology       | Purpose                                  |
+| ---------------- | ---------------------------------------- |
+| **Node.js**      | JavaScript runtime                       |
+| **Express 5**    | Web framework & API routing              |
+| **MongoDB**      | NoSQL database for links & clicks        |
+| **qrcode**       | QR code image generation (PNG)           |
+| **ua-parser-js** | User-Agent parsing (browser, OS, device) |
+| **axios**        | HTTP client for URL reachability checks  |
 
 ### Frontend
-| Technology | Purpose |
-|---|---|
-| **React 19** | UI library |
-| **TypeScript** | Type-safe JavaScript |
-| **Vite 8** | Lightning-fast dev server & bundler |
-| **React Router DOM 7** | Client-side routing (Home, Dashboard) |
-| **Recharts 3** | Data visualization (Bar, Pie, Line charts) |
-| **Tailwind CSS 4** | Utility-first CSS framework |
-| **Axios** | HTTP client for API calls |
+
+| Technology             | Purpose                                    |
+| ---------------------- | ------------------------------------------ |
+| **React 19**           | UI library                                 |
+| **TypeScript**         | Type-safe JavaScript                       |
+| **Vite 8**             | Lightning-fast dev server & bundler        |
+| **React Router DOM 7** | Client-side routing (Home, Dashboard)      |
+| **Recharts 3**         | Data visualization (Bar, Pie, Line charts) |
+| **Tailwind CSS 4**     | Utility-first CSS framework                |
+| **Axios**              | HTTP client for API calls                  |
 
 ---
 
@@ -317,17 +322,17 @@ The dashboard page calls `GET /api/v1/dashboard` which runs **MongoDB aggregatio
 
 ### Links
 
-| Method | Endpoint | Description | Request Body |
-|--------|----------|-------------|--------------|
-| `POST` | `/api/v1/links` | Create a short URL | `{ "originalUrl": "https://...", "customAlias": "my-link" }` |
-| `GET` | `/api/v1/links/:code/download` | Download QR code image (PNG) | — |
-| `GET` | `/:code` | Redirect to original URL (tracks click) | — |
+| Method | Endpoint                       | Description                             | Request Body                                                 |
+| ------ | ------------------------------ | --------------------------------------- | ------------------------------------------------------------ |
+| `POST` | `/api/v1/links`                | Create a short URL                      | `{ "originalUrl": "https://...", "customAlias": "my-link" }` |
+| `GET`  | `/api/v1/links/:code/download` | Download QR code image (PNG)            | —                                                            |
+| `GET`  | `/:code`                       | Redirect to original URL (tracks click) | —                                                            |
 
 ### Dashboard
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `GET` | `/api/v1/dashboard` | Get all analytics data |
+| Method | Endpoint            | Description            |
+| ------ | ------------------- | ---------------------- |
+| `GET`  | `/api/v1/dashboard` | Get all analytics data |
 
 ### Response Format
 
@@ -372,34 +377,34 @@ All API responses follow this standard structure:
 
 ### Link Model (`links` collection)
 
-| Field | Type | Description |
-|-------|------|-------------|
-| `originalUrl` | `String` | The original long URL (required, trimmed) |
-| `shortCode` | `String` | Auto-generated 6-char hex code (required, unique, indexed) |
-| `customAlias` | `String` | Optional custom alias (unique, sparse index) |
-| `title` | `String` | Optional link title |
-| `clickCount` | `Number` | Total number of clicks (default: `0`) |
-| `qrCode` | `String` | Path to the generated QR code image |
-| `isActive` | `Boolean` | Whether the link is active (default: `true`) |
-| `shortUrl` | `String` | Full short URL (unique) |
-| `expiresAt` | `Date` | Expiration date (20 days from creation) |
-| `isReachable` | `Boolean` | Whether the original URL is reachable (default: `true`) |
-| `lastVisitedAt` | `Date` | Timestamp of the last click |
-| `createdAt` | `Date` | Auto-generated by Mongoose |
-| `updatedAt` | `Date` | Auto-generated by Mongoose |
+| Field           | Type      | Description                                                |
+| --------------- | --------- | ---------------------------------------------------------- |
+| `originalUrl`   | `String`  | The original long URL (required, trimmed)                  |
+| `shortCode`     | `String`  | Auto-generated 6-char hex code (required, unique, indexed) |
+| `customAlias`   | `String`  | Optional custom alias (unique, sparse index)               |
+| `title`         | `String`  | Optional link title                                        |
+| `clickCount`    | `Number`  | Total number of clicks (default: `0`)                      |
+| `qrCode`        | `String`  | Path to the generated QR code image                        |
+| `isActive`      | `Boolean` | Whether the link is active (default: `true`)               |
+| `shortUrl`      | `String`  | Full short URL (unique)                                    |
+| `expiresAt`     | `Date`    | Expiration date (20 days from creation)                    |
+| `isReachable`   | `Boolean` | Whether the original URL is reachable (default: `true`)    |
+| `lastVisitedAt` | `Date`    | Timestamp of the last click                                |
+| `createdAt`     | `Date`    | Auto-generated by Mongoose                                 |
+| `updatedAt`     | `Date`    | Auto-generated by Mongoose                                 |
 
 ### Click Model (`clicks` collection)
 
-| Field | Type | Description |
-|-------|------|-------------|
-| `linkID` | `ObjectId` | Reference to the Link document (required, indexed) |
-| `browser` | `String` | Browser name (default: `"Unknown"`) |
-| `operatingSystem` | `String` | OS name (default: `"Unknown"`) |
-| `device` | `String` | Device type (default: `"Desktop"`) |
-| `country` | `String` | Country (default: `"Unknown"`) |
-| `city` | `String` | City (default: `"Unknown"`) |
-| `referrer` | `String` | Referrer URL (default: `"Direct"`) |
-| `visitedAt` | `Date` | Click timestamp (default: `Date.now`) |
+| Field             | Type       | Description                                        |
+| ----------------- | ---------- | -------------------------------------------------- |
+| `linkID`          | `ObjectId` | Reference to the Link document (required, indexed) |
+| `browser`         | `String`   | Browser name (default: `"Unknown"`)                |
+| `operatingSystem` | `String`   | OS name (default: `"Unknown"`)                     |
+| `device`          | `String`   | Device type (default: `"Desktop"`)                 |
+| `country`         | `String`   | Country (default: `"Unknown"`)                     |
+| `city`            | `String`   | City (default: `"Unknown"`)                        |
+| `referrer`        | `String`   | Referrer URL (default: `"Direct"`)                 |
+| `visitedAt`       | `Date`     | Click timestamp (default: `Date.now`)              |
 
 ### Entity Relationship
 
@@ -503,13 +508,13 @@ JWT_SECRET=your_jwt_secret
 FRONTEND_URL=http://localhost:5173
 ```
 
-| Variable | Required | Description |
-|----------|----------|-------------|
-| `PORT` | No | Server port (default: `5000`) |
-| `NODE_ENV` | No | Environment mode (`development` / `production`) |
-| `MONGODB_URI` | **Yes** | MongoDB connection string |
-| `JWT_SECRET` | No | JWT secret key (for future auth features) |
-| `FRONTEND_URL` | No | Frontend URL (for CORS configuration) |
+| Variable       | Required | Description                                     |
+| -------------- | -------- | ----------------------------------------------- |
+| `PORT`         | No       | Server port (default: `5000`)                   |
+| `NODE_ENV`     | No       | Environment mode (`development` / `production`) |
+| `MONGODB_URI`  | **Yes**  | MongoDB connection string                       |
+| `JWT_SECRET`   | No       | JWT secret key (for future auth features)       |
+| `FRONTEND_URL` | No       | Frontend URL (for CORS configuration)           |
 
 ---
 
@@ -517,7 +522,7 @@ FRONTEND_URL=http://localhost:5173
 
 ### 1. Shorten a URL
 
-1. Open **http://localhost:5173** in your browser
+1. Open **https://url-short-ms3y-taupe.vercel.app** in your browser
 2. Paste a long URL in the input field
 3. (Optional) Enter a custom alias
 4. Click **"Shorten →"**

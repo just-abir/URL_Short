@@ -27,7 +27,6 @@ interface ApiResponse<T> {
 }
 
 const Home = ({ themeMode }: HomeProps) => {
-  console.log("IN HOme: ", themeMode);
   const [formData, setFormData] = useState<FormData>({
     originalUrl: "",
     customAlias: "",

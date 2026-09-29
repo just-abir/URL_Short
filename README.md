@@ -22,7 +22,7 @@ This platform lets users shorten long URLs into compact, shareable links with op
 
 ## Live Demo
 
-## [View Live Demo](https://url-short-ms3y-taupe.vercel.app)
+🚀 **Live Application:** [URL Short](https://url-short-ms3y-taupe.vercel.app)
 
 ## Screenshots
 

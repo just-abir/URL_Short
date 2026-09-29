@@ -165,6 +165,11 @@ const Dashboard = ({ themeMode }: DashboardProps) => {
         </p>
       </div>
 
+      {error && (
+        <div className="mb-6 rounded-lg bg-red-100 p-4 text-red-700">
+          {error}
+        </div>
+      )}
       {/* =========================
         STATISTIC CARDS
     ========================= */}

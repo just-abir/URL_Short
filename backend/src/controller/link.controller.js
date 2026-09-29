@@ -108,14 +108,13 @@ const createLink = asyncHandler(async (req, res, next) => {
   // 6. Create short URL
   const finalCode = trimmedAlias || shortCodeGenerate;
 
-  const newShortUrl = `${req.protocol}://${req.get("host")}/${finalCode}`;
-
+const newShortUrl = `${process.env.BASE_URL}/${finalCode}`;
   // 7. Generate QR code
 
   const qrBuffer = await QRCode.toBuffer(newShortUrl);
-  console.log("qeBuffer: ", qrBuffer);
+  
   const uploadResult = await uploadQrToCloudinary(qrBuffer, finalCode);
-  console.log("R-Tessting ", uploadResult);
+ 
 
   const qrCodeUrl = uploadResult.secure_url;
 
@@ -143,14 +142,14 @@ const createLink = asyncHandler(async (req, res, next) => {
   // 11. Save to database
   const newLink = await linkModel.create(linkData);
 
-  console.log(newLink);
+ 
 
   return sendResponse(res, 201, "Short URL created successfully", newLink);
 });
 
 const redirectOriginal = asyncHandler(async (req, res, next) => {
   const { code } = req.params;
-  console.log(req.params);
+
   const link = await linkModel.findOne({
     $or: [{ shortCode: code }, { customAlias: code }],
   });
@@ -163,8 +162,7 @@ const redirectOriginal = asyncHandler(async (req, res, next) => {
 
   const parser = new UAParser(req.headers["user-agent"]);
   const result = parser.getResult();
-  console.log(req.headers["user-agent"]);
-  console.log(result);
+ 
 
   const moreInfo = await clickModel.create({
     linkID: link._id,
@@ -174,7 +172,7 @@ const redirectOriginal = asyncHandler(async (req, res, next) => {
     device: result.device.type || "Desktop",
     referrer: req.get("referer") || "Direct",
   });
-  console.log(moreInfo);
+ 
   link.clickCount += 1;
   link.lastVisitedAt = new Date();
   await link.save();
@@ -211,7 +209,6 @@ const qrCodeDownlad = asyncHandler(async (req, res, next) => {
 
     // handle stream errors after piping starts
     response.data.on("error", (err) => {
-      console.error("Error streaming QR from Cloudinary:", err);
       if (!res.headersSent) {
         sendResponse(res, 500, "Failed to download QR code");
       } else {
@@ -219,7 +216,6 @@ const qrCodeDownlad = asyncHandler(async (req, res, next) => {
       }
     });
   } catch (error) {
-    console.error("Error fetching QR from Cloudinary:", error.message);
     return sendResponse(res, 500, "Failed to fetch QR code");
   }
 });

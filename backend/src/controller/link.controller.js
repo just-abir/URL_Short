@@ -16,7 +16,7 @@ const checkingUrl = async (url) => {
     const liveUrl = await axios.get(url, { timeout: 5000, maxRedirects: 5 });
     return true;
   } catch (error) {
-    console.log(error.message);
+    
     return false;
   }
 };

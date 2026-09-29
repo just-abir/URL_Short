@@ -122,7 +122,7 @@ const Dashboard = ({ themeMode }: DashboardProps) => {
   // =========================
 
   const PIE_COLORS = [
-    "#6366f1",
+    "#ef4444",
     "#8b5cf6",
     "#ec4899",
     "#f59e0b",
@@ -174,10 +174,10 @@ const Dashboard = ({ themeMode }: DashboardProps) => {
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {/* Total Links */}
-        <div className="overflow-hidden rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 p-5 text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+        <div className="overflow-hidden rounded-2xl bg-red-500 p-5 text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-indigo-100">Total Links</p>
+              <p className="text-sm font-medium text-red-100">Total Links</p>
 
               <h2 className="mt-2 text-3xl font-bold">{totalLinks}</h2>
             </div>
@@ -187,7 +187,7 @@ const Dashboard = ({ themeMode }: DashboardProps) => {
         </div>
 
         {/* Total Clicks */}
-        <div className="overflow-hidden rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-500 p-5 text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+        <div className="overflow-hidden rounded-2xl bg-blue-500 p-5 text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-blue-100">Total Clicks</p>
@@ -200,7 +200,7 @@ const Dashboard = ({ themeMode }: DashboardProps) => {
         </div>
 
         {/* Active Links */}
-        <div className="overflow-hidden rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-500 p-5 text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+        <div className="overflow-hidden rounded-2xl bg-emerald-500 p-5 text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-emerald-100">
@@ -215,7 +215,7 @@ const Dashboard = ({ themeMode }: DashboardProps) => {
         </div>
 
         {/* Reachable Links */}
-        <div className="overflow-hidden rounded-2xl bg-gradient-to-br from-orange-500 to-pink-500 p-5 text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+        <div className="overflow-hidden rounded-2xl bg-orange-500 p-5 text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-orange-100">
@@ -329,7 +329,7 @@ const Dashboard = ({ themeMode }: DashboardProps) => {
 
                 <Bar
                   dataKey="clickCount"
-                  fill="#6366f1"
+                  fill="#ef4444"
                   radius={[0, 8, 8, 0]}
                 />
               </BarChart>

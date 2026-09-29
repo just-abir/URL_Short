@@ -68,7 +68,7 @@ interface ApiResponse<T> {
 
 const Dashboard = ({ themeMode }: DashboardProps) => {
   const [dashboard, setDashboard] = useState<DashboardResponse | null>(null);
-  const [error, setError] = useState<string | null>(null);
+
   const topLinksData = dashboard?.topLinks || [];
   const browserData = dashboard?.browser || [];
   const operatingSystemData = dashboard?.operatingSystem || [];
@@ -101,11 +101,11 @@ const Dashboard = ({ themeMode }: DashboardProps) => {
       setDashboard(response.data.data);
     } catch (error: unknown) {
       if (axios.isAxiosError(error)) {
-        setError(error.response?.data?.message || error.message);
+        console.log(error.response?.data?.message || error.message);
       } else if (error instanceof Error) {
-        setError(error.message);
+        console.log(error.message);
       } else {
-        setError("Something went wrong");
+        console.log("Something went wrong");
       }
     }
   };
@@ -165,11 +165,6 @@ const Dashboard = ({ themeMode }: DashboardProps) => {
         </p>
       </div>
 
-      {error && (
-        <div className="mb-6 rounded-lg bg-red-100 p-4 text-red-700">
-          {error}
-        </div>
-      )}
       {/* =========================
         STATISTIC CARDS
     ========================= */}

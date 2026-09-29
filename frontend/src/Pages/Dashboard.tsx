@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import {
   PieChart,
@@ -495,7 +495,7 @@ const Dashboard = ({ themeMode }: DashboardProps) => {
                     outerRadius="70%"
                     label
                   >
-                    {operatingSystemData.map((entry, index) => (
+                    {operatingSystemData.map((_, index) => (
                       <Cell
                         key={`cell-${index}`}
                         fill={PIE_COLORS[index % PIE_COLORS.length]}
